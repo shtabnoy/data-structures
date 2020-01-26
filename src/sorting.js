@@ -18,10 +18,10 @@ export const selectionSort = arr => {
 }
 
 /**
- * Insertion Sort
+ * Insertion Sort Iterative
  * (in-place modification)
  */
-export const insertionSort1 = (arr, asc = true) => {
+export const insertionSortIter = (arr, asc = true) => {
   for (let i = 1; i < arr.length; i++) {
     let key = arr[i]
     let j = i - 1
@@ -54,7 +54,7 @@ const insertionSortRec = (arr, k) => {
   }
 }
 
-export const insertionSort2 = arr => {
+export const insertionSortRecursive = arr => {
   insertionSortRec(arr, arr.length)
 }
 
