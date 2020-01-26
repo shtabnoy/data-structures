@@ -21,7 +21,7 @@ export const selectionSort = arr => {
  * Insertion Sort
  * (in-place modification)
  */
-export const insertionSort = (arr, asc = true) => {
+export const insertionSort1 = (arr, asc = true) => {
   for (let i = 1; i < arr.length; i++) {
     let key = arr[i]
     let j = i - 1
@@ -34,11 +34,36 @@ export const insertionSort = (arr, asc = true) => {
 }
 
 /**
+ *
+ * Insertion Sort Recursive
+ */
+const insertion = (arr, k) => {
+  let key = arr[k]
+  let i = k - 1
+  while (i >= 0 && arr[i] > key) {
+    arr[i + 1] = arr[i]
+    i--
+  }
+  arr[i + 1] = key
+}
+
+const insertionSortRec = (arr, k) => {
+  if (k > 1) {
+    insertionSortRec(arr, k - 1)
+    insertion(arr, k - 1)
+  }
+}
+
+export const insertionSort2 = arr => {
+  insertionSortRec(arr, arr.length)
+}
+
+/**
  * Merge Sort
  * with a sentinel element (Infinity)
  * which is needed for better comparison
  */
-const merge = (arr, p, q, r) => {
+const mergeSentinel = (arr, p, q, r) => {
   let left = arr.slice(p, q + 1)
   let right = arr.slice(q + 1, r + 1)
   left.push(Infinity)
@@ -48,6 +73,30 @@ const merge = (arr, p, q, r) => {
     j = 0
   for (let k = p; k <= r; k++) {
     if (left[i] <= right[j]) {
+      arr[k] = left[i]
+      i++
+    } else {
+      arr[k] = right[j]
+      j++
+    }
+  }
+}
+
+// without a sentinel element
+const merge = (arr, p, q, r) => {
+  let left = arr.slice(p, q + 1)
+  let right = arr.slice(q + 1, r + 1)
+
+  let i = 0,
+    j = 0
+  for (let k = p; k <= r; k++) {
+    if (i >= left.length) {
+      arr[k] = right[j]
+      j++
+    } else if (j >= right.length) {
+      arr[k] = left[i]
+      i++
+    } else if (left[i] <= right[j]) {
       arr[k] = left[i]
       i++
     } else {
